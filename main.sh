@@ -26,14 +26,13 @@ download_screenshots() {
             local signed_url=$(echo "$entry" | jq -r '.signedUrl')
             local lang=$(echo "$entry" | jq -r '.lang')
             local display_type=$(echo "$entry" | jq -r '.screenshotDisplayType')
-            local is_folder=$(echo "$entry" | jq -r '.isFolder')
             local order=$(echo "$entry" | jq -r '.order')
             local filename=$(basename "$signed_url" | cut -d'?' -f1)
             local extension="${filename##*.}"  # Get the file extension
             new_filename="${counter}_${lang}_${display_type}_${order}.${extension}"
             target_dir="./fastlane/metadata/android/$lang/images/$display_type"
 
-            if [[ "$is_folder" == "false" ]]; then
+            if [[ "$display_type" == "featureGraphic" ]] || [[ "$display_type" == "icon" ]] || [[ "$display_type" == "tvBanner" ]] ; then
               new_filename="${display_type}.${extension}"
               target_dir="./fastlane/metadata/android/$lang/images"
             fi
