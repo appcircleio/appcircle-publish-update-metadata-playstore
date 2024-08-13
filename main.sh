@@ -88,6 +88,8 @@ fi
      touch fastlane/Fastfile
      mv "$AC_FASTFILE_CONFIG" "fastlane/Fastfile"
      mv "$AC_APP_FILE_CONFIG" "fastlane/Appfile"
+     mv "$AC_API_KEY" "$AC_API_KEY_FILE_NAME"
+     
      bundle exec fastlane update_metadata --verbose
      if [ $? -eq 0 ] 
        then
