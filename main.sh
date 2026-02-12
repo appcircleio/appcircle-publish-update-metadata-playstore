@@ -8,6 +8,7 @@
       echo "AC_SCREEN_SHOT_LIST : $AC_SCREEN_SHOT_LIST";
       echo "AC_FASTFILE_CONFIG : $AC_FASTFILE_CONFIG";
       echo "AC_APP_FILE_CONFIG : $AC_APP_FILE_CONFIG";
+      echo "AC_FASTLANE_VERSION: $AC_FASTLANE_VERSION"
 
 download_screenshots() {
 
@@ -81,7 +82,15 @@ fi
      download_screenshots "$AC_SCREEN_SHOT_LIST"
 
      bundle init
-     echo "gem \"fastlane\"">>Gemfile
+
+if [ -z "$AC_FASTLANE_VERSION" ] || [ "$AC_FASTLANE_VERSION" = "latest" ]; then
+    echo 'gem "fastlane"' >> Gemfile
+    echo "Using latest fastlane version"
+else
+    echo "Using fastlane version: $AC_FASTLANE_VERSION"
+    echo "gem \"fastlane\", \"$AC_FASTLANE_VERSION\"" >> Gemfile
+fi
+     
      bundle install
      mkdir fastlane
      touch fastlane/Appfile
