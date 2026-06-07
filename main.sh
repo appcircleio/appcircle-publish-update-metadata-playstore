@@ -91,6 +91,7 @@ else
     echo "gem \"fastlane\", \"$AC_FASTLANE_VERSION\"" >> Gemfile
 fi
      
+     bundle add multi_json
      bundle install
      mkdir fastlane
      touch fastlane/Appfile
